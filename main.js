@@ -73,24 +73,24 @@ function rendertable() {
 
         tablazat.appendChild(sor) //a fő táblázathoz hozzácsatolom a sort
 
-        const elsosor = document.createElement('td') //elsosor létrehozása
-        elsosor.innerHTML = mostanielement.szerzonev //elsosor innerHTML-je a az array-ben a mostanielement (i)-nek a sor1.je
-        sor.appendChild(elsosor) //hozzátesszük a sorhoz az elso oszlop elso elemjét 
+        const elsocella = document.createElement('td') //elsocella létrehozása
+        elsocella.innerHTML = mostanielement.szerzonev //elsocella innerHTML-je a az array-ben a mostanielement (i)-nek a szerzoneve
+        sor.appendChild(elsocella) //hozzátesszük a sorhoz az elso oszlop elso elemjét 
 
-        const masodiksor = document.createElement('td') //masodiksor létrehozása
-        masodiksor.innerHTML = mostanielement.korszak //masodiksor innerHTML-je a az array-ben a mostanielement (i)-nek a sor2.je
-        sor.appendChild(masodiksor) //hozzátesszük a sorhoz az elso oszlop masodik elemjét 
+        const masodikcella = document.createElement('td') //masodikcella létrehozása
+        masodikcella.innerHTML = mostanielement.korszak //masodikcella innerHTML-je a az array-ben a mostanielement (i)-nek a korszak.ja
+        sor.appendChild(masodikcella) //hozzátesszük a sorhoz az elso oszlop masodik elemjét 
 
-        const harmadiksor = document.createElement('td') //harmadiksor létrehozása
-        harmadiksor.innerHTML = mostanielement.szerelem1 //harmadiksor innerHTML-je a az array-ben a mostanielement (i)-nek a sor3.je
-        sor.appendChild(harmadiksor) //hozzátesszük a sorhoz az elso oszlop harmadik elemjét 
+        const harmadikcella = document.createElement('td') //harmadikcella létrehozása
+        harmadikcella.innerHTML = mostanielement.szerelem1 //harmadikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem1.je
+        sor.appendChild(harmadikcella) //hozzátesszük a sorhoz az elso oszlop harmadik elemjét 
 
         if (!mostanielement.szerelem2) {
-            harmadiksor.colSpan = 2 // ha nincs tudos2 akkor colspan 2
+            harmadikcella.colSpan = 2 // ha nincs tudos2 akkor colspan 2
         }else {
-            const negyediksor = document.createElement('td') //negyediksor létrehozása
-            negyediksor.innerHTML = mostanielement.szerelem2 //negyediksor innerHTML-je a az array-ben a mostanielement (i)-nek a sor4.je
-              sor.appendChild(negyediksor) //hozzátesszük a sorhoz az elso oszlop negyedik elemjét 
+            const negyedikcella = document.createElement('td') //negyedikcella létrehozása
+            negyedikcella.innerHTML = mostanielement.szerelem2 //negyedikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem2.je
+              sor.appendChild(negyedikcella) //hozzátesszük a sorhoz az elso oszlop negyedik elemjét 
         }
 
         tbody.appendChild(sor)
@@ -131,53 +131,24 @@ form.addEventListener('submit', function(e) {
 
     let valid = true
 
-    function szerzokor(ertek, uzenet) {
-        if (!ertek.value) { 
-            const parentElement = ertek.parentElement; 
-            const errormsg = parentElement.querySelector('.error'); 
-            if (errormsg) { //ha az errormsg van akkor 
-                errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
-            }
-        }
-    }
-    szerzokor(szerzo, "Szerző megadása kötelező!")
-    szerzokor(korszak, "Korszak megadása kötelező!")
-
-    if(!szerelem1ertek) { //ha a szerelem1ertek megegyezik és egyelő típusú akkor
-        const parentElement = szerelem1.parentElement; // a szerelem1 mezonek a  parentelementjét eltároljuk egy változóba
-        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
-        if(errormsg != undefined) { //ha van és undefined
-            errormsg.innerHTML = 'Szerelem megadasa kotelezo';  //akkor legyen az innerhtml-je ez
-        }
-    } 
-
     if(!szerzoertek || !korszakertek || !szerelem1ertek) { //hogy ha a teruletertek vagy az idoszakertek "" vagy undefined akkor a valid legyen false amúgy meg true
         valid = false //legyen false
     }else {
         valid = true //legyen true
     }
     
-
     if(masodikertek == true) {
         szerelem2ertek = szerelem2.value
     } else {
         szerelem2ertek = ""
     }
 
-    if(masodikertek == true && szerelem1ertek && !szerelem2ertek){
-        const parentElement = szerelem1.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
-        const parentElement1 = szerelem2.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
-        const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
-        const errormsg1 = parentElement1.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
-        if (errormsg && errormsg1) { //ha az errormsg van akkor 
-            errormsg.innerHTML = "Kötelező megadni mindkét szerelmet ha bepipálod!!"; //legyen a megadott uzenetünk az
+    alapcheck(szerzo, "Szerző megadása kötelező!")
+    alapcheck(korszak, "Korszak megadása kötelező!")
+    alapcheck(szerelem1, "Szerelem megadása kötelező")
+   
+    szerelemcheck(szerelem1, szerelem2, "Kötelez megadni mintkét szerelmet!", masodik)
 
-            errormsg1.innerHTML = "Kötelező megadni mindkét szerelmet ha bepipálod!"; //legyen a megadott uzenetünk az       
-            valid = false
-    }else {
-        valid =  true
-    }
-    }
         if(valid) {
             const ujadat = { // egy uj objektumot hozunk létre 
                 szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
@@ -197,3 +168,32 @@ form.addEventListener('submit', function(e) {
 
     rendertable() // és az ujonnan belerakott dologgal ujragenerálom a táblát.
 })
+
+
+function alapcheck(ertek, uzenet) {
+    if (!ertek.value) { 
+        const parentElement = ertek.parentElement; 
+        const errormsg = parentElement.querySelector('.error'); 
+        if (errormsg) { //ha az errormsg van akkor 
+            errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+        }
+    }
+}
+
+
+
+function szerelemcheck(ertek, ertek2, uzenet, pipa ) {
+    if (ertek.value && !ertek2.value && pipa == true) { 
+        const parentElement = ertek.parentElement; 
+        const parentElement1 = ertek2.parentElement; 
+        const errormsg = parentElement.querySelector('.error'); 
+        const errormsg1 = parentElement1.querySelector('.error'); 
+        if (errormsg) { //ha az errormsg van akkor 
+            errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+            errormsg1.innerHTML = uzenet; //legyen a megadott uzenetünk az
+        }
+    }
+}
+
+
+
