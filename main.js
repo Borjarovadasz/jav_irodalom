@@ -131,21 +131,18 @@ form.addEventListener('submit', function(e) {
 
     let valid = true
 
-    if(!szerzoertek) { //ha a területérték megegyezik és egyelő típusú akkor
-        const parentElement = szerzo.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
-        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
-        if(errormsg != undefined) { //ha van és undefined
-            errormsg.innerHTML = 'Szerző megadasa kotelezo';  //akkor legyen az innerhtml-je ez
+    function szerzokor(ertek, uzenet) { // teridocheck függvény aminek a bemeneti paraméteri ertek és uzenet
+        if (!ertek.value) { // ha az érték nek a tulajdonsága undefined vagy "" 
+            const parentElement = ertek.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+            const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+            if (errormsg) { //ha az errormsg van akkor 
+                errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
+            }
         }
-    } 
+    }
+    szerzokor(szerzo, "Szerző megadása kötelező!")
+    szerzokor(korszak, "Korszak megadása kötelező!")
 
-    if(!korszakertek) { //ha a területérték megegyezik és egyelő típusú akkor
-        const parentElement = korszak.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
-        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
-        if(errormsg != undefined) { //ha van és undefined
-            errormsg.innerHTML = 'Korszak megadasa kotelezo';  //akkor legyen az innerhtml-je ez
-        }
-    } 
 
     if(!szerelem1ertek) { //ha a területérték megegyezik és egyelő típusú akkor
         const parentElement = szerelem1.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
