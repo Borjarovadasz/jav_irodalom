@@ -74,44 +74,6 @@ const formarray =
    
 ]
 
-function formgen(arrayform) {
-    const form = document.createElement('form')
-    form.id = 'form'
-    
-    for(let i = 0; i < arrayform.length; i++) {
-        const div = document.createElement('div')
-        
-        const label = document.createElement('label')
-        label.htmlFor = arrayform[i].for
-        label.innerText = arrayform[i].label
-
-        const input = document.createElement('input')
-        
-        input.id = arrayform[i].id
-        input.name = arrayform[i].id
-        input.type = 'text'
-        if(arrayform[i].label == "Volt másik szerelme?"){
-            input.type = 'checkbox'
-        }
-
-        const br = document.createElement('br')
-
-        div.appendChild(label)
-        div.appendChild(br)
-        div.appendChild(input)
-
-        const errordivecske = document.createElement('div')
-
-        errordivecske.className = 'error'
-        div.appendChild(errordivecske)
-    
-        form.appendChild(div)
-    }
-    const button = document.createElement('button') //csinálunk egy gombot
-   button.innerHTML = "Hozzáadás" //a gombnak legyen az innerhtml-je a "Hozzáadás"
-   document.body.appendChild(form) //a bodyhoz hozzátesszük a formot
-   form.appendChild(button) //majd a gombot pedig a formhoz
-}
 
 formgen(formarray)
 
@@ -127,51 +89,6 @@ thead.appendChild(tr)
 
 headergen(tr,fejlec)
 
-function headergen(sor, fejlecobjk) {
-    for(const adat of fejlecobjk) { // for ciklussal az az adatokat nézzük az objektumból
-        const cella = document.createElement('th')//létrehozunk egy  TH-T
-        cella.innerHTML = adat.szoveg // a th elem belső HTML-jét az aktuális adat értékére állítjuk
-
-        sor.appendChild(cella) // hozzáadjuk a sorhoz
-
-        if(adat.colSpan) { //hogyha a adat a harmadik elem akkor legyen colspan 2
-            cella.colSpan = adat.colSpan // colSpan beállítása a th elemre
-        }
-    }
-}
-
-
-function rendertable(arrayobjek, theholder) {
-    for(let adat of arrayobjek) { //végigiterálok egy for ciklussal az array-en
-        const sor = document.createElement('tr') // csinálok egy sort
-
-        theholder.appendChild(sor) //a fő táblázathoz hozzácsatolom a sort
-
-        const elsocella = document.createElement('td') //elsocella létrehozása
-        elsocella.innerHTML = adat.szerzonev //elsocella innerHTML-je a az array-ben a mostanielement (i)-nek a szerzoneve
-        sor.appendChild(elsocella) //hozzátesszük a sorhoz az elso oszlop elso elemjét 
-
-        const masodikcella = document.createElement('td') //masodikcella létrehozása
-        masodikcella.innerHTML = adat.korszak //masodikcella innerHTML-je a az array-ben a mostanielement (i)-nek a korszak.ja
-        sor.appendChild(masodikcella) //hozzátesszük a sorhoz az elso oszlop masodik elemjét 
-
-        const harmadikcella = document.createElement('td') //harmadikcella létrehozása
-        harmadikcella.innerHTML = adat.szerelem1 //harmadikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem1.je
-        sor.appendChild(harmadikcella) //hozzátesszük a sorhoz az elso oszlop harmadik elemjét 
-
-        if (!adat.szerelem2) {
-            harmadikcella.colSpan = 2 // ha nincs tudos2 akkor colspan 2
-        }else {
-            const negyedikcella = document.createElement('td') //negyedikcella létrehozása
-            negyedikcella.innerHTML = adat.szerelem2 //negyedikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem2.je
-              sor.appendChild(negyedikcella) //hozzátesszük a sorhoz az elso oszlop negyedik elemjét 
-        }
-
-        theholder.appendChild(sor)
-
-}
-
-}
 
 rendertable(array, tbody)
 
@@ -244,32 +161,6 @@ form.addEventListener('submit', function(e) {
 })
 
 
-function alapcheck(ertek, uzenet) {
-    if (!ertek.value) { 
-        valid = false
-        const parentElement = ertek.parentElement; 
-        const errormsg = parentElement.querySelector('.error'); 
-        if (errormsg) { //ha az errormsg van akkor 
-            errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
-        }
-    }
-
-}
-
-
-
-function szerelemcheck(ertek, ertek2, uzenet, pipa ) {
-    if (ertek.value && !ertek2.value && pipa == true) { 
-        const parentElement = ertek.parentElement; 
-        const parentElement1 = ertek2.parentElement; 
-        const errormsg = parentElement.querySelector('.error'); 
-        const errormsg1 = parentElement1.querySelector('.error'); 
-        if (errormsg) { //ha az errormsg van akkor 
-            errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
-            errormsg1.innerHTML = uzenet; //legyen a megadott uzenetünk az
-        }
-    }
-}
 
 
 
