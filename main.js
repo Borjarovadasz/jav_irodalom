@@ -109,7 +109,7 @@ form.addEventListener('submit', function(e) {
     const szerzo = document.getElementById("kolto_nev") //elkerem a fizika idt és beteszem az itt létrehozott változóba
     const korszak = document.getElementById("korszak") //elkerem a ido idt és beteszem az itt létrehozott változóba
     const szerelem1 = document.getElementById("szerelem1") //elkerem a tudos1 idt és beteszem az itt létrehozott változóba
-   // const masodik = document.getElementById("masodik")
+    const masodik = document.getElementById("masodik").checked
     const szerelem2 = document.getElementById("szerelem2") //elkerem a tudos2 idt és beteszem az itt létrehozott változóba
 
 
@@ -119,9 +119,9 @@ form.addEventListener('submit', function(e) {
 
     const szerelem1ertek = szerelem1.value //itt egy másik változóba belerakom az elöbb elkért tudos1 változó értékét
 
-    //const masodikertek = masodik.value
+    const masodikertek = masodik
 
-    const szerelem2ertek = szerelem2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
+    let szerelem2ertek = szerelem2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
     let valid = true
 
@@ -129,6 +129,11 @@ form.addEventListener('submit', function(e) {
         valid = false
     }
 
+    if(masodikertek == true) {
+        szerelem2ertek = szerelem2.value
+    } else {
+        szerelem2ertek = ""
+    }
 
         if(valid) {
             const ujadat = { // egy uj objektumot hozunk létre 
