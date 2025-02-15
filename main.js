@@ -123,11 +123,44 @@ form.addEventListener('submit', function(e) {
 
     let szerelem2ertek = szerelem2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
+    const form = e.currentTarget  
+    const errorhtml = form.querySelectorAll('.error') //a formon belül mindenet aminek error classal rendelkezik beletesszük egy változoba
+    for(const errorelement of errorhtml){  //minden egyes element ami ebben az errorhtml-ben van 
+        errorelement.innerHTML = '' //annak legyen az innerhtml-je üres string. (igy eltűnik majd a validácios szöveg ha tényleg irunk valamit)
+    }   
+
     let valid = true
 
-    if(!szerzoertek || !korszakertek) {
-        valid = false
+    if(!szerzoertek) { //ha a területérték megegyezik és egyelő típusú akkor
+        const parentElement = szerzo.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
+        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
+        if(errormsg != undefined) { //ha van és undefined
+            errormsg.innerHTML = 'Szerző megadasa kotelezo';  //akkor legyen az innerhtml-je ez
+        }
+    } 
+
+    if(!korszakertek) { //ha a területérték megegyezik és egyelő típusú akkor
+        const parentElement = korszak.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
+        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
+        if(errormsg != undefined) { //ha van és undefined
+            errormsg.innerHTML = 'Korszak megadasa kotelezo';  //akkor legyen az innerhtml-je ez
+        }
+    } 
+
+    if(!szerelem1ertek) { //ha a területérték megegyezik és egyelő típusú akkor
+        const parentElement = szerelem1.parentElement; // a terulet mezonek a  parentelementjét eltároljuk egy változóba
+        const errormsg = parentElement.querySelector('.error');  //majd ebben a parentelement div-ben megnézzük hogy van e class-al rendelkező elem
+        if(errormsg != undefined) { //ha van és undefined
+            errormsg.innerHTML = 'Szerelem megadasa kotelezo';  //akkor legyen az innerhtml-je ez
+        }
+    } 
+
+    if(!szerzoertek || !korszakertek || !szerelem1ertek) { //hogy ha a teruletertek vagy az idoszakertek "" vagy undefined akkor a valid legyen false amúgy meg true
+        valid = false //legyen false
+    }else {
+        valid = true //legyen true
     }
+    
 
     if(masodikertek == true) {
         szerelem2ertek = szerelem2.value
@@ -135,6 +168,20 @@ form.addEventListener('submit', function(e) {
         szerelem2ertek = ""
     }
 
+    if(masodikertek == true && szerelem1ertek && !szerelem2ertek){
+        const parentElement = szerelem1.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+        const parentElement1 = szerelem2.parentElement; //akkor létrehozunk egy parentelement változot és eltároljuk a bejővő értéknek a parentelementjét
+        const errormsg = parentElement.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+        const errormsg1 = parentElement1.querySelector('.error'); //majd egy errormsg változóban a bejövő értéknek parentelementjében megkeressük az első error classal rendekező dolgot.
+        if (errormsg && errormsg1) { //ha az errormsg van akkor 
+            errormsg.innerHTML = "Kötelező megadni mindkét szerelmet ha bepipálod!!"; //legyen a megadott uzenetünk az
+
+            errormsg1.innerHTML = "Kötelező megadni mindkét szerelmet ha bepipálod!"; //legyen a megadott uzenetünk az       
+            valid = false
+    }else {
+        valid =  true
+    }
+    }
         if(valid) {
             const ujadat = { // egy uj objektumot hozunk létre 
                 szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
