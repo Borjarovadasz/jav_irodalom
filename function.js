@@ -1,5 +1,6 @@
 
-/**Ez egy formgenerálás ami egy arrayt kapva bemeneti értékként legenerálja nekünk a táblázatot
+/**Ez egy formgenerálás ami egy arrayt kapva bemeneti értékként legenerálja nekünk a táblázatot 
+ * 
  * 
  * @param {Array} arrayform 
  */
