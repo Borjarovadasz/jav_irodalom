@@ -70,40 +70,39 @@ function headergen(sor, fejlecobjk) {
 }
 
 
-function rendertable() {
-    for(let i = 0; i < array.length; i++ ) { //végigiterálok egy for ciklussal az array-en
-        const mostanielement = array[i]  //az i-dik element a mostanielement lesz
+function rendertable(arrayobjek, theholder) {
+    for(let adat of arrayobjek) { //végigiterálok egy for ciklussal az array-en
         const sor = document.createElement('tr') // csinálok egy sort
 
-        tablazat.appendChild(sor) //a fő táblázathoz hozzácsatolom a sort
+        theholder.appendChild(sor) //a fő táblázathoz hozzácsatolom a sort
 
         const elsocella = document.createElement('td') //elsocella létrehozása
-        elsocella.innerHTML = mostanielement.szerzonev //elsocella innerHTML-je a az array-ben a mostanielement (i)-nek a szerzoneve
+        elsocella.innerHTML = adat.szerzonev //elsocella innerHTML-je a az array-ben a mostanielement (i)-nek a szerzoneve
         sor.appendChild(elsocella) //hozzátesszük a sorhoz az elso oszlop elso elemjét 
 
         const masodikcella = document.createElement('td') //masodikcella létrehozása
-        masodikcella.innerHTML = mostanielement.korszak //masodikcella innerHTML-je a az array-ben a mostanielement (i)-nek a korszak.ja
+        masodikcella.innerHTML = adat.korszak //masodikcella innerHTML-je a az array-ben a mostanielement (i)-nek a korszak.ja
         sor.appendChild(masodikcella) //hozzátesszük a sorhoz az elso oszlop masodik elemjét 
 
         const harmadikcella = document.createElement('td') //harmadikcella létrehozása
-        harmadikcella.innerHTML = mostanielement.szerelem1 //harmadikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem1.je
+        harmadikcella.innerHTML = adat.szerelem1 //harmadikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem1.je
         sor.appendChild(harmadikcella) //hozzátesszük a sorhoz az elso oszlop harmadik elemjét 
 
-        if (!mostanielement.szerelem2) {
+        if (!adat.szerelem2) {
             harmadikcella.colSpan = 2 // ha nincs tudos2 akkor colspan 2
         }else {
             const negyedikcella = document.createElement('td') //negyedikcella létrehozása
-            negyedikcella.innerHTML = mostanielement.szerelem2 //negyedikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem2.je
+            negyedikcella.innerHTML = adat.szerelem2 //negyedikcella innerHTML-je a az array-ben a mostanielement (i)-nek a szerelem2.je
               sor.appendChild(negyedikcella) //hozzátesszük a sorhoz az elso oszlop negyedik elemjét 
         }
 
-        tbody.appendChild(sor)
+        theholder.appendChild(sor)
 
 }
 
 }
 
-rendertable()
+rendertable(array, tbody)
 
 const form = document.getElementById('form') // megszerezzük az id alapján a formot
 
@@ -170,7 +169,8 @@ form.addEventListener('submit', function(e) {
 
     tbody.innerHTML = "" //kitörlöm a táblázatot azért a tbodyt mert abban van igazából az egész táblázat a headerrel nem kell foglalkozni.
 
-    rendertable() // és az ujonnan belerakott dologgal ujragenerálom a táblát.
+    rendertable(array, tbody)  // és az ujonnan belerakott dologgal ujragenerálom a táblát.
+
 })
 
 
