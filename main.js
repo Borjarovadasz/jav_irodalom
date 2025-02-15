@@ -123,18 +123,27 @@ form.addEventListener('submit', function(e) {
 
     const szerelem2ertek = szerelem2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
+    let valid = true
 
-
-    const ujadat = { // egy uj objektumot hozunk létre 
-        szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
-        korszak : korszakertek, // az idoszaknak az idoszakerteke lesz az értéke
-        szerelem1 : szerelem1ertek, // a tudos1-nek a tudos1ertek lesz az új értéke
-        szerelem2 : szerelem2ertek // a tudos2-nek a tudos2ertek lesz az új értéke
-
+    if(!szerzoertek || !korszakertek) {
+        valid = false
     }
 
 
-    array.push(ujadat) //belerakjuk az arrayben ami ugye már létezik ezt az új létrehozott adatobjektumunkat.
+        if(valid) {
+            const ujadat = { // egy uj objektumot hozunk létre 
+                szerzonev: szerzoertek, // az uj fizikateruletnek a teruletertek lesz az értéke
+                korszak : korszakertek, // az idoszaknak az idoszakerteke lesz az értéke
+                szerelem1 : szerelem1ertek, // a tudos1-nek a tudos1ertek lesz az új értéke
+                szerelem2 : szerelem2ertek // a tudos2-nek a tudos2ertek lesz az új értéke
+                
+            }
+            array.push(ujadat) //belerakjuk az arrayben ami ugye már létezik ezt az új létrehozott adatobjektumunkat.
+        }
+    
+
+    form.reset()
+   
 
     tbody.innerHTML = "" //kitörlöm a táblázatot azért a tbodyt mert abban van igazából az egész táblázat a headerrel nem kell foglalkozni.
 
