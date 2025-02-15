@@ -54,14 +54,18 @@ tablazat.appendChild(tbody)
 const tr = document.createElement('tr')
 thead.appendChild(tr)
 
-for(let adat of fejlec) {
-    const th = document.createElement('th');
+headergen(tr,fejlec)
 
-    th.innerHTML = adat.szoveg
-    console.log(adat);
-    tr.appendChild(th);
-    if(adat.szoveg == 'Szerelmek') {
-        th.colSpan = 2
+function headergen(sor, fejlecobjk) {
+    for(const adat of fejlecobjk) { // for ciklussal az az adatokat nézzük az objektumból
+        const cella = document.createElement('th')//létrehozunk egy  TH-T
+        cella.innerHTML = adat.szoveg // a th elem belső HTML-jét az aktuális adat értékére állítjuk
+
+        sor.appendChild(cella) // hozzáadjuk a sorhoz
+
+        if(adat.colSpan) { //hogyha a adat a harmadik elem akkor legyen colspan 2
+            cella.colSpan = adat.colSpan // colSpan beállítása a th elemre
+        }
     }
 }
 
