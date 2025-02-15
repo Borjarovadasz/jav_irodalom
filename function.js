@@ -32,7 +32,7 @@ function formgen(arrayform) { //formgenerate függvény létrehozása
         const errordivecske = document.createElement('div') //csináluk egy divet errordiv névvel
 
         errordivecske.className = 'error' //az errordivnek a classneve az legyen "error"
-        div.appendChild(errordiv) //majd szépen hozzátesszük a fődivhez ezt az uj divet. Persze mivel egy forcikluson belül vagyunk ebből is sok lesz vagyis amilyen hosszú az arrayünk.
+        div.appendChild(errordivecske) //majd szépen hozzátesszük a fődivhez ezt az uj divet. Persze mivel egy forcikluson belül vagyunk ebből is sok lesz vagyis amilyen hosszú az arrayünk.
 
  
     
