@@ -63,12 +63,12 @@ const formarray =
     },
     { //negyedik objektumunk
         label: "Volt másik szerelme?", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
-        id: "szerelem1", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "masodik", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
         for:"szerelem1" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
     },
     { //ötödik objektumunk
         label: "Szerelme2:", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
-        id: "szerelem1", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "szerelem2", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
         for:"szerelem1" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
     },
    
@@ -208,6 +208,12 @@ form.addEventListener('submit', function(e) {
         szerelem2ertek = szerelem2.value
     } else {
         szerelem2ertek = ""
+    }
+
+    if(!szerzoertek || !korszakertek || !szerelem1ertek) { //hogy ha a teruletertek vagy az idoszakertek "" vagy undefined akkor a valid legyen false amúgy meg true
+        valid = false //legyen false
+    }else {
+        valid = true //legyen true
     }
 
     alapcheck(szerzo, "Szerző megadása kötelező!")
