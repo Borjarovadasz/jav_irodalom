@@ -44,6 +44,77 @@ const array = [
     
 ]
 
+const formarray = 
+    [ //létrehozunk egy fejléc arrayt objektumokkal
+    { //elso objektumunk
+        label: "Költő neve:", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "kolto_nev", //adunk egy idt és egy értéket hozzá amit majd használunk a form generálásnál
+        for:"kolto_nev" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
+    },
+    { //második objektumunk
+        label: "Korszak:", //adunk egy és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "korszak", //adunk egy idt és egy értéket hozzá amit majd használunk a form generálásnál
+        for:"korszak" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
+    },
+    { //harmadik objektumunk
+        label: "Szerelme1:", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "szerelem1", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
+        for:"szerelem1" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
+    },
+    { //negyedik objektumunk
+        label: "Volt másik szerelme?", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "szerelem1", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
+        for:"szerelem1" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
+    },
+    { //ötödik objektumunk
+        label: "Szerelme2:", //adunk egy labelt és egy értéket hozzá amit majd használunk a form generálásnál
+        id: "szerelem1", //adunk egy id-t és egy értéket hozzá amit majd használunk a form generálásnál
+        for:"szerelem1" //adunk egy for-t és egy értéket hozzá amit majd használunk a form generálásnál
+    },
+   
+]
+
+function formgen(arrayform) {
+    const form = document.createElement('form')
+    form.id = 'form'
+    
+    for(let i = 0; i < arrayform.length; i++) {
+        const div = document.createElement('div')
+        
+        const label = document.createElement('label')
+        label.htmlFor = arrayform[i].for
+        label.innerText = arrayform[i].label
+
+        const input = document.createElement('input')
+        
+        input.id = arrayform[i].id
+        input.name = arrayform[i].id
+        input.type = 'text'
+        if(arrayform[i].label == "Volt másik szerelme?"){
+            input.type = 'checkbox'
+        }
+
+        const br = document.createElement('br')
+
+        div.appendChild(label)
+        div.appendChild(br)
+        div.appendChild(input)
+
+        const errordivecske = document.createElement('div')
+
+        errordivecske.className = 'error'
+        div.appendChild(errordivecske)
+    
+        form.appendChild(div)
+    }
+    const button = document.createElement('button') //csinálunk egy gombot
+   button.innerHTML = "Hozzáadás" //a gombnak legyen az innerhtml-je a "Hozzáadás"
+   document.body.appendChild(form) //a bodyhoz hozzátesszük a formot
+   form.appendChild(button) //majd a gombot pedig a formhoz
+}
+
+formgen(formarray)
+
 const tablazat = document.createElement('table')
 const tbody = document.createElement('tbody')
 const thead = document.createElement('thead')
@@ -115,14 +186,13 @@ form.addEventListener('submit', function(e) {
     const masodik = document.getElementById("masodik").checked
     const szerelem2 = document.getElementById("szerelem2") //elkerem a tudos2 idt és beteszem az itt létrehozott változóba
 
-
     const szerzoertek = szerzo.value //itt egy másik változóba belerakom az elöbb elkért terulet változó értékét
 
     const korszakertek = korszak.value //itt egy másik változóba belerakom az elöbb elkért idoszak változó értékét
 
     const szerelem1ertek = szerelem1.value //itt egy másik változóba belerakom az elöbb elkért tudos1 változó értékét
 
-    const masodikertek = masodik
+    const masodikertek = masodik.value
 
     let szerelem2ertek = szerelem2.value//itt egy másik változóba belerakom az elöbb elkért tudos2 változó értékét
 
@@ -134,12 +204,6 @@ form.addEventListener('submit', function(e) {
 
     let valid = true
 
-    if(!szerzoertek || !korszakertek || !szerelem1ertek) { //hogy ha a teruletertek vagy az idoszakertek "" vagy undefined akkor a valid legyen false amúgy meg true
-        valid = false //legyen false
-    }else {
-        valid = true //legyen true
-    }
-    
     if(masodikertek == true) {
         szerelem2ertek = szerelem2.value
     } else {
@@ -176,12 +240,14 @@ form.addEventListener('submit', function(e) {
 
 function alapcheck(ertek, uzenet) {
     if (!ertek.value) { 
+        valid = false
         const parentElement = ertek.parentElement; 
         const errormsg = parentElement.querySelector('.error'); 
         if (errormsg) { //ha az errormsg van akkor 
             errormsg.innerHTML = uzenet; //legyen a megadott uzenetünk az
         }
     }
+
 }
 
 
